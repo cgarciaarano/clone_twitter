@@ -1,16 +1,8 @@
 kind: pipeline
 name: default
 
-services:
-- name: dind
-  image: docker:dind
-  privileged: true
-
 steps:
 - name: build
-  image: docker
+  image: dflemstr/drone-dind
   commands:
   - docker build -t ${DRONE_REPO_NAME}:${DRONE_REPO_BRANCH} -f docker/Dockerfile .
-  environment:
-    DOCKER_HOST: tcp://dind:2375/
-    DOCKER_DRIVER: overlay2
